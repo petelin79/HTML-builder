@@ -7,21 +7,19 @@ const newFile = path.join(__dirname, 'project-dist', 'bundle.css');
 
 let writeStream = fs.createWriteStream(newFile);
 
-let arr = new Array();
 fsProm
   .readdir(folder, { withFileTypes: true })
   .then((elems) => {
-    elems.forEach((elem) => {
-      let route = path.join(folder, elem.name);
-      if (elem.isFile() && path.extname(route) === '.css') {
-        arr.push(elem);
-      }
+    return elems.filter((elem) => {
+      return (
+        elem.isFile() && path.extname(path.join(folder, elem.name)) === '.css'
+      );
     });
   })
-  .then(() => {
-    arr.forEach((el) => {
-      let route = path.join(folder, el.name);
-      let readStream = fs.createReadStream(route, 'utf-8');
-      readStream.pipe(writeStream);
+  .then((arr) => {
+    arr.map((elem) => {
+      fs.createReadStream(path.join(folder, elem.name), 'utf-8').pipe(
+        writeStream,
+      );
     });
   });
