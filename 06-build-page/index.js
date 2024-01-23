@@ -38,8 +38,8 @@ const makeCopyFolder = (output, input) => {
         );
       }
     });
-    fsProm.readdir(input, { withFileTypes: true }).then((arr) => {
-      arr.map((elem) => {
+    fsProm.readdir(input, { withFileTypes: true }).then((ar) => {
+      ar.map((elem) => {
         if (!arr.map((el) => el.name).includes(elem.name)) {
           fs.rm(path.join(input, elem.name), { recursive: true }, (error) => {
             if (error) throw error;
