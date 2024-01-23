@@ -11,8 +11,8 @@ function copyDir(output, input) {
       );
     });
 
-    fs.readdir(path.join(__dirname, input)).then((arr) => {
-      arr.map((elem) => {
+    fs.readdir(path.join(__dirname, input)).then((ar) => {
+      ar.map((elem) => {
         if (!arr.includes(elem)) {
           fs.rm(path.join(__dirname, input, elem));
         }
